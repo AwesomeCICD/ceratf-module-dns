@@ -8,7 +8,7 @@ resource "aws_route53_zone" "subdomain_zone" {
   name          = "${var.circleci_region}.${var.root_zone_name}."
   comment       = "Subdomain for CircleCI ${upper(var.circleci_region)} region"
   force_destroy = false
-  tags = var.common_tags
+  tags          = var.common_tags
 }
 
 

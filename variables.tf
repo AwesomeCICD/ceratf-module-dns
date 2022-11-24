@@ -12,5 +12,5 @@ variable "circleci_region" {
 
 variable "common_tags" {
   description = "Tags to be applied to all taggable resources."
-  default = {}
+  default     = {}
 }
