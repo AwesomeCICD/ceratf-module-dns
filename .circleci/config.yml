@@ -1,0 +1,53 @@
+version: 2.1
+orbs:
+  terraform: circleci/terraform@3.2.0
+  jinja: jtreutel/jinja@1.1.0
+  aws-cli: circleci/aws-cli@3.1.3
+
+
+jobs:
+  setup-oidc-and-test-files:
+    parameters:
+      aws_profile: 
+        type: env_var_name
+        default: J2_AWS_PROFILE
+      oidc_test_role_arn: 
+        type: env_var_name
+        default: OIDC_TEST_ROLE_ARN
+    executor: jinja/default
+    steps:
+      - checkout
+      - aws-cli/install
+      - aws-cli/assume-role-with-web-identity:
+          profile-name: << parameters.aws_profile >>
+          role-arn: "arn:aws:iam::483285841698:role/SolutionsEngineeringEKS" #"<< parameters.oidc_test_role_arn >>" 
+          role-session-name: "cci-se-eks-cluster-tf-module-<< pipeline.number >>"
+          session-duration: "3600"
+      - jinja/render:
+          path: .test/
+          outputdir: ./
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  tf-validate:
+    executor: terraform/default
+    steps:
+      - attach_workspace:
+          at: .
+      - terraform/fmt
+      - terraform/validate
+
+workflows:
+  version: 2
+  main:
+    jobs:
+      - setup-oidc-and-test-files:
+          name: Set up OIDC Auth with AWS & Render Templated Test Files
+          context: 
+            - se-eks-dns-tf-module-testing
+      - tf-validate:
+          name: Validate Terraform Plan
+          requires: 
+            - Set up OIDC Auth with AWS & Render Templated Test Files
