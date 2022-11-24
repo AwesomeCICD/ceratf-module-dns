@@ -1,0 +1,7 @@
+testing.tf
+testing.auto.tfvars
+.terraform*
+terraform.tfstate*
+*_kubeconfig
+testing/
+example/providers.tf
