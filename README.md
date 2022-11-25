@@ -1,4 +1,4 @@
-# se-eks-dns-tf-module
+# ceratf-module-dns
 Deploys a Route53 hosted zone for a CircleCI region.  Does the following:
 
 - Deploys a Route53 zone for a subdomain 
@@ -8,7 +8,7 @@ Deploys a Route53 hosted zone for a CircleCI region.  Does the following:
 
 - Terraform >= 1.0.9
 - aws-cli >= 2.8.3
-- Access to state file from se-eks-cluster-global plan
+- Access to state file from ceratf-deployment-global plan
 
 ## How to Use
 
@@ -45,7 +45,7 @@ Deploys a Route53 hosted zone for a CircleCI region.  Does the following:
 
 ```hcl
 module "dns_test" {
-  source = "git@github.com:AwesomeCICD/se-eks-dns-tf-module.git"
+  source = "git@github.com:AwesomeCICD/ceratf-module-dns.git"
 
   root_zone_name  = "example.com"
   root_zone_id    = "Z100XXXXXXXXXXXXXXXX"

@@ -21,7 +21,7 @@ jobs:
       - aws-cli/assume-role-with-web-identity:
           profile-name: << parameters.aws_profile >>
           role-arn: "arn:aws:iam::483285841698:role/SolutionsEngineeringEKS" #"<< parameters.oidc_test_role_arn >>" 
-          role-session-name: "cci-se-eks-cluster-tf-module-<< pipeline.number >>"
+          role-session-name: "cci-ceratf-module-dns-<< pipeline.number >>"
           session-duration: "3600"
       - jinja/render:
           path: .test/
