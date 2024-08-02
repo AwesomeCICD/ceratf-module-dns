@@ -41,5 +41,5 @@ resource "aws_route53_record" "aux_zone_delegation_ns_record" {
   name    = "${var.circleci_region}.${var.aux_zone_name}."
   type    = "NS"
   ttl     = "30"
-  records = aws_route53_zone.subdomain_zone_aux.name_servers
+  records = aws_route53_zone.subdomain_zone_aux[0].name_servers
 }
