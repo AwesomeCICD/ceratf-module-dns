@@ -7,9 +7,9 @@ output "r53_subdomain_zone_id" {
 }
 
 output "r53_subdomain_zone_name_aux" {
-  value = (var.aux_zone_id ?aws_route53_zone.subdomain_zone_aux.name : "")
+  value = (var.aux_zone_id ? aws_route53_zone.subdomain_zone_aux[0].name : "")
 }
 
 output "r53_subdomain_zone_id_aux" {
-  value = (var.aux_zone_id ?aws_route53_zone.subdomain_zone_aux.id : "")
+  value = (var.aux_zone_id ? aws_route53_zone.subdomain_zone_aux[0].id : "")
 }
